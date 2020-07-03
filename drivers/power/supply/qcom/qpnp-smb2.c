@@ -1374,6 +1374,7 @@ static int smb2_batt_set_prop(struct power_supply *psy,
 	switch (prop) {
 #ifdef CONFIG_MACH_LONGCHEER
 	case POWER_SUPPLY_PROP_CHARGING_ENABLED:
+		chg->charging_enabled = val->intval;
 		rc = lct_set_prop_input_suspend(chg, val);
 		break;
 #endif
@@ -2986,7 +2987,7 @@ static int smb2_probe(struct platform_device *pdev)
 	fb_register_client(&chg->notifier);
 	INIT_WORK(&chg->fb_notify_work, thermal_fb_notifier_resume_work);
 #endif
-	chg->charging_enabled = true;
+	chg->charging_enabled = 1;
 #endif
 
 	pr_info("QPNP SMB2 probed successfully usb:present=%d type=%d batt:present = %d health = %d charge = %d\n",
