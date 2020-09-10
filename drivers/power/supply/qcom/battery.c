@@ -93,13 +93,7 @@ enum print_reason {
 	PR_PARALLEL	= BIT(0),
 };
 
-#ifdef CONFIG_MACH_LONGCHEER
-static int debug_mask = 0xff;
-#elif defined(CONFIG_MACH_MI)
-static int debug_mask = PR_PARALLEL;
-#else
 static int debug_mask;
-#endif
 module_param_named(debug_mask, debug_mask, int, S_IRUSR | S_IWUSR);
 
 #define pl_dbg(chip, reason, fmt, ...)				\
@@ -1321,7 +1315,7 @@ static void handle_settled_icl_change(struct pl_data *chip)
 			return;
 		}
 		battery_temp = lct_pval.intval;
-		pr_err("main_limited=%d, main_settled_ua=%d, chip->pl_settled_ua=%d ,total_current_ua=%d , battery_temp=%d\n", main_limited, main_settled_ua, chip->pl_settled_ua, total_current_ua, battery_temp);
+		pr_debug("main_limited=%d, main_settled_ua=%d, chip->pl_settled_ua=%d ,total_current_ua=%d , battery_temp=%d\n", main_limited, main_settled_ua, chip->pl_settled_ua, total_current_ua, battery_temp);
 		if ((main_limited && (main_settled_ua + chip->pl_settled_ua) < 1300000)
 				|| (main_settled_ua == 0)
 				|| ((total_current_ua >= 0) &&
@@ -1339,7 +1333,7 @@ static void handle_settled_icl_change(struct pl_data *chip)
 			}
 		}
 	} else {
-		pr_err("main_limited=%d, main_settled_ua=%d, chip->pl_settled_ua=%d ,total_current_ua=%d\n", main_limited, main_settled_ua, chip->pl_settled_ua, total_current_ua);
+		pr_debug("main_limited=%d, main_settled_ua=%d, chip->pl_settled_ua=%d ,total_current_ua=%d\n", main_limited, main_settled_ua, chip->pl_settled_ua, total_current_ua);
 		if ((main_limited && (main_settled_ua + chip->pl_settled_ua) < 1300000)
 				|| (main_settled_ua == 0)
 				|| ((total_current_ua >= 0) &&
@@ -1350,7 +1344,7 @@ static void handle_settled_icl_change(struct pl_data *chip)
 			vote(chip->pl_enable_votable_indirect, USBIN_I_VOTER, true, 0);
 	}
 #else
-	pr_err("main_limited=%d, main_settled_ua=%d, chip->pl_settled_ua=%d ,total_current_ua=%d\n", main_limited, main_settled_ua, chip->pl_settled_ua, total_current_ua);
+	pr_debug("main_limited=%d, main_settled_ua=%d, chip->pl_settled_ua=%d ,total_current_ua=%d\n", main_limited, main_settled_ua, chip->pl_settled_ua, total_current_ua);
 #ifdef CONFIG_MACH_LONGCHEER
 	if ((main_limited && (main_settled_ua + chip->pl_settled_ua) < 1300000)
 #else
