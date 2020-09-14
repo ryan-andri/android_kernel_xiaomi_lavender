@@ -74,9 +74,6 @@ enum print_reason {
 #define OV_VOTER			"OV_VOTER"
 #define FCC_STEPPER_VOTER		"FCC_STEPPER_VOTER"
 
-#ifdef CONFIG_MACH_LONGCHEER
-#define THERMAL_CONFIG_FB	1
-#endif
 #ifdef CONFIG_MACH_MI
 #define CHG_AWAKE_VOTER			"CHG_AWAKE_VOTER"
 #define MAIN_ICL_BEFORE_DUAL_CHARGE		"MAIN_ICL_BEFORE_DUAL_CHARGE"
@@ -419,7 +416,14 @@ struct smb_charger {
 	bool			otg_present;
 	bool			fcc_stepper_mode;
 #ifdef CONFIG_MACH_LONGCHEER
-#ifdef THERMAL_CONFIG_FB
+#ifdef CONFIG_FB
+	bool			lct_backlight_off;
+#ifdef CONFIG_MACH_XIAOMI_WAYNE
+	int			lct_in_video;
+#endif
+	int			lct_in_call;
+	int			therm_lvl_reserved;
+	int			lct_thermal;
 	struct notifier_block	notifier;
 	struct work_struct	fb_notify_work;
 #endif
