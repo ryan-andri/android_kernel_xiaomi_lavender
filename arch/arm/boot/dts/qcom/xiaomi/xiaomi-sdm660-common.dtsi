@@ -1,6 +1,33 @@
-/* Red led was used for powersupply of White led */
+/* Green led was used for powersupply of White led */
+&pm660l_pwm_2 {
+	reg = <0xb300 0x100>, <0xb042 0x7e>; /* use registers from pm660l_pwm_3 */
+	qcom,ramp-index = <2>;
+	qcom,period = <6000000>;
+
+	qcom,lpg {
+		label = "lpg";
+		cell-index = <0>;
+		qcom,duty-percents =
+			<0x01 0x0a 0x14 0x1e 0x28 0x32 0x3c
+			0x46 0x50 0x5a 0x64
+			0x64 0x5a 0x50 0x46 0x3c 0x32 0x28 0x1e
+			0x14 0x0a 0x01>;
+	};
+};
+
 &red_led {
+	qcom,duty-pcts = [ 00 0E 1C 2A 38 46 54 64 ];
+	qcom,idx-len = <8>;
+	qcom,pause-lo = <500>;
+	qcom,pause-hi = <500>;
+	qcom,ramp-step-ms = <50>;
+	qcom,lut-flags = <31>; /* loop, ramp up, reverse, pause hi, pause lo */
+	qcom,use-blink;
+};
+
+&green_led {
 	linux,name = "white";
+	qcom,start-idx = <0>;
 	qcom,duty-pcts = [ 00 0E 1C 2A 38 46 54 64 ];
 	qcom,idx-len = <8>;
 	qcom,pause-lo = <500>;
