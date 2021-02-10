@@ -313,9 +313,7 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(pd_voltage_max),
 	POWER_SUPPLY_ATTR(pd_voltage_min),
 	POWER_SUPPLY_ATTR(sdp_current_max),
-#ifdef CONFIG_MACH_LONGCHEER
-	POWER_SUPPLY_ATTR(fg_reset_clock),
-#elif defined(CONFIG_MACH_MI)
+#ifdef CONFIG_MACH_MI
 	POWER_SUPPLY_ATTR(type_recheck),
 	POWER_SUPPLY_ATTR(charger_type),
 #endif
@@ -329,6 +327,7 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(enable_jeita_detection),
 	POWER_SUPPLY_ATTR(allow_hvdcp3),
 	POWER_SUPPLY_ATTR(max_pulse_allowed),
+	POWER_SUPPLY_ATTR(fg_reset_clock),
 	POWER_SUPPLY_ATTR(parallel_batfet_mode),
 	POWER_SUPPLY_ATTR(parallel_fcc_max),
 	POWER_SUPPLY_ATTR(min_icl),
